@@ -1,2 +1,0 @@
-new fdef reverse_string(s):
-    return s[::-1]
