@@ -23,4 +23,4 @@ hostel_inventory = {"A1": 2, "B1": 1}
 output = allot_hostel(applicants, hostel_inventory)
 
 for name, room in output.items():
-    print(f"{name}: {room}")
+    print(f"{name}: {room}")    

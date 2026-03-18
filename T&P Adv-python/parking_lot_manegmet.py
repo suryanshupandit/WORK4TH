@@ -1,18 +1,24 @@
-tasks = []
+class ParkingLot:
+    def __init__(self, spots):
+        self.spots = spots
+        self.occupied = {}
 
-while True:
-    print("\n1. Add Task | 2. View All | 3. Filter by Category | 4. Exit")
-    choice = input("Select an option: ")
-
-    if choice == '1':
-        desc = input("Task description: ")
-        deadline = input("Deadline (e.g. Friday): ")
-        priority = input("Priority (High/Low): ")
-        cat = input("Category (Work/Home/School): ")
-        tasks.append({"desc": desc, "deadline": deadline, "pri": priority, "cat": cat})
-    elif choice == '2' or choice == '3':
-        filt = input("Enter category to filter (or press Enter for all): ")
-        for t in tasks:
-            if not filt or t['cat'].lower() == filt.lower():
-                print(f"[{t['pri']}] {t['desc']} - Due: {t['deadline']} ({t['cat']})")
-    elif choice == '4': break
+    def run(self):
+        while True:
+            print(f"\n--- Parking Lot (Available: {self.spots - len(self.occupied)}) ---")
+            action = input("Type 'entry', 'exit', or 'quit': ").lower()
+            
+            if action == 'quit': break
+            
+            plate = input("Enter License Plate: ").upper()
+            if action == 'entry':
+                if len(self.occupied) < self.spots:
+                    self.occupied[plate] = 10.0 # Standard fee
+                    print(f"Vehicle {plate} parked.")
+                else: print("Lot full!")
+            elif action == 'exit':
+                if plate in self.occupied:
+                    self.occupied.pop(plate)
+                    print(f"Vehicle {plate} removed. Fee paid: $10.00")
+                else: print("Vehicle not found.")
+ParkingLot(10).run()

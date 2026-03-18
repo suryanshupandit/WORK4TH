@@ -1,5 +1,4 @@
 class InsufficientFundsError(Exception): pass
-
 def process_transaction(balance, amount, target_account):
     try:
         if amount > balance:
@@ -14,5 +13,5 @@ def process_transaction(balance, amount, target_account):
         print(f"Bank Error: {e}")
     except (ValueError, ConnectionError) as e:
         print(f"System Error: {e}")
-
 process_transaction(100, 500, "123")
+                                           
