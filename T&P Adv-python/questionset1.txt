@@ -1,0 +1,207 @@
+Advanced Python - Detailed Practice Set 
+
+SECTION A: MCQs
+
+1. What will be the output? 
+x = [1,2,3] 
+print(x * 2) 
+a) [1,2,3,1,2,3] 
+b) Error 
+c) [2,4,6] 
+d) None 
+and-:a) [1,2,3,1,2,3]
+
+2. What is the output? 
+print(bool("")) 
+a) True 
+b) False 
+c) Error 
+d) None 
+ans-:b) False
+
+3. Which is mutable? 
+a) tuple 
+b) string 
+c) list 
+d) int 
+ans-:c) list
+
+4. What will be output? 
+print(10 == 10.0) 
+a) True 
+b) False 
+ans-a) True
+
+SECTION B: Output Prediction 
+
+5.  
+a = [1,2,3] 
+b = a 
+b.append(4) 
+print(a) 
+ans-:[1, 2, 3, 4]
+
+6. 
+def func(x=[]): 
+x.append(1) 
+return x 
+print(func()) 
+
+print(func()) 
+ans-:[1]
+    [1, 1]
+
+7. 
+for i in range(5): 
+if i == 3: 
+break 
+print(i) 
+ans-:
+0
+1
+2
+
+8. 
+try: 
+print(10/0) 
+except: 
+print("Error") 
+finally: 
+print("Done") 
+ans-: Error
+      Done
+
+SECTION C: Coding Questions 
+
+9. Write a program to: - Take input string - Count vowels and consonants 
+ans-:
+text = input("Enter a string: ").lower()
+vowels = "aeiou"
+v_count = 0
+c_count = 0
+
+for char in text:
+    if char.isalpha():
+        if char in vowels:
+            v_count += 1
+        else:
+            c_count += 1
+
+print(f"Vowels: {v_count}, Consonants: {c_count}")
+
+10. Write a program to: - Read a file - Count number of lines, words and characters 
+ans-:
+with open("sample.txt", "r") as f:
+    lines = f.readlines()
+    line_count = len(lines)
+    word_count = sum(len(line.split()) for line in lines)
+    char_count = sum(len(line) for line in lines)
+
+print(f"Lines: {line_count}, Words: {word_count}, Characters: {char_count}")
+
+11. Write a program: - Create a class BankAccount - Methods: deposit, withdraw, check balance 
+ans-:
+class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited {amount}. New balance: {self.balance}")
+    def withdraw(self, amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrew {amount}. New balance: {self.balance}")
+        else:
+            print("Insufficient funds!")
+    def check_balance(self):
+        print(f"Current Balance: {self.balance}")
+12. Write a program: - Accept list of numbers - Remove duplicates 
+- Sort it without using sort() 
+ans-:
+nums = [4, 2, 5, 2, 1, 4, 3]
+# Remove duplicates
+unique_nums = list(set(nums))
+# Bubble Sort
+n = len(unique_nums)
+for i in range(n):
+    for j in range(0, n - i - 1):
+        if unique_nums[j] > unique_nums[j + 1]:
+            unique_nums[j], unique_nums[j + 1] = unique_nums[j + 1], unique_nums[j]
+
+print(unique_nums)
+
+13. Write a program using lambda + map + filter: - Square only even numbers from list 
+SECTION D: Advanced / Thinking 
+ans-:
+nums = [1, 2, 3, 4, 5, 6]
+# Filter even, then square them
+result = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))
+print(result) # Output: [4, 16, 36]
+
+16. Write a program: - Simulate login system - Use file to store username/password 
+ans-:def login():
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+    with open("users.txt", "r") as f:
+        for line in f:
+            u, p = line.strip().split(",")
+            if u == username and p == password:
+                return "Login Successful!"
+    return "Invalid credentials."
+
+17. Exception Handling: - Create custom exception "InvalidAgeError" - Raise error if age < 18 
+SECTION E: GUI + Database Based 
+ans-:
+class InvalidAgeError(Exception):
+    pass
+def check_age(age):
+    if age < 18:
+        raise InvalidAgeError("Age must be 18 or older.")
+    return "Access granted."
+try:
+    print(check_age(15))
+except InvalidAgeError as e:
+    print(e)
+
+18. Create a Tkinter form: - Name input - Submit button - Show entered name 
+ans-:
+import tkinter as tk
+def show_name():
+    label_res.config(text=f"Hello, {entry.get()}!")
+root = tk.Tk()
+entry = tk.Entry(root)
+entry.pack()
+btn = tk.Button(root, text="Submit", command=show_name)
+btn.pack()
+label_res = tk.Label(root, text="")
+label_res.pack()
+root.mainloop()
+
+19. Python + SQL: - Connect database - Create table Student 
+- Insert 3 records - Fetch and display all 
+ans-:
+import sqlite3
+conn = sqlite3.connect("school.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS Student (id INT, name TEXT)")
+cursor.executemany("INSERT INTO Student VALUES (?, ?)", [(1, 'Alice'), (2, 'Bob'), (3, 'Charlie')])
+cursor.execute("SELECT * FROM Student")
+for row in cursor.fetchall():
+    print(row)
+conn.close()
+
+20. Build mini project: 
+STUDENT MANAGEMENT SYSTEM 
+Features: - Add student - View student - Delete student - Store data in file or database 
+ans-:
+students = {}
+def add_student():
+    sid = input("ID: ")
+    name = input("Name: ")
+    students[sid] = name
+def view_students():
+    for sid, name in students.items():
+        print(f"ID: {sid}, Name: {name}")
+def delete_student():
+    sid = input("Enter ID to delete: ")
+    students.pop(sid, None)
